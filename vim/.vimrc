@@ -14,77 +14,106 @@ Bundle 'gmarik/vundle'
 
 "Bundle 'vim-scripts/FuzzyFinder'
 "Plugin 'wincent/command-t'
-Bundle 'scrooloose/nerdtree'
-Bundle 'jistr/vim-nerdtree-tabs'
-Bundle 'bling/vim-airline'
 
-" throws exception on file open... review
-" Bundle 'marijnh/tern_for_vim' 
+Plugin 'scrooloose/nerdtree'
+Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'jistr/vim-nerdtree-tabs'
+
+" neat statusline and tabline
+Plugin 'bling/vim-airline'
+
+" CALENDAR
+Plugin 'itchyny/calendar.vim'
+
+" CODE FORMATTING
+" Add maktaba and codefmt to the runtimepath.
+" (The latter must be installed before it can be used.)
+Plugin 'google/vim-maktaba'
+Plugin 'google/vim-codefmtlib'
+Plugin 'google/vim-codefmt'
+
+" GIT
+Plugin 'tpope/vim-fugitive'
+Plugin 'airblade/vim-gitgutter'
+
+" Tim Pope's bunch of plugins
+Plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-repeat'
+
+" Running ':Tab /=' will align selected or whole file's = in a column
+" moreinfo http://vimcasts.org/episodes/aligning-text-with-tabular-vim/
+Plugin 'godlygeek/tabular'
+Plugin 'plasticboy/vim-markdown'
+
+" Surrounds
+" do cs"'  to change "Hellow" to 'Hellow', 'hellow' to <q>hellow</q>
+Plugin 'tpope/vim-surround'
+
+" AUTO-PAIRS : Insert or delete brackets, parens, quotes in pair.
+Plugin 'jiangmiao/auto-pairs'
+
+Plugin 'myusuf3/numbers.vim'
 
 Bundle 'Shougo/unite.vim'
 Bundle 'Shougo/neocomplete.vim'
 
 Bundle 'edsono/vim-matchit' 
 
-Bundle "kshenoy/vim-signature"
-Bundle "mkitt/tabline.vim"
+Bundle 'kshenoy/vim-signature'
+Bundle 'mkitt/tabline.vim'
 
-Bundle "xolox/vim-misc"
-Bundle "xolox/vim-session"
+Plugin 'xolox/vim-misc'
+Plugin 'xolox/vim-session'
 
 " Snippet manager
-" Bundle "msanders/snipmate.vim"
+" Bundle 'msanders/snipmate.vim'
 
 " COLORSCHEMES
 " http://stackoverflow.com/questions/1199267/braces-and-operators-coloring-in-vim-for-c
 Bundle 'morhetz/gruvbox'
 
 " Tag navigation
-Bundle "majutsushi/tagbar"
+" ! currently switched to tabline feature of airline plugin
+"Bundle 'majutsushi/tagbar'
 
+" \p \P to move forward/backward in yankstack
 Bundle 'maxbrunsfeld/vim-yankstack' 
 
-Bundle "elzr/vim-json"
-Bundle "groenewege/vim-less"
-Bundle "tpope/vim-markdown"
-
-" AUTO-PAIRS : Insert or delete brackets, parens, quotes in pair.
-Plugin 'jiangmiao/auto-pairs'
+Bundle 'elzr/vim-json'
+Bundle 'groenewege/vim-less'
 
 " RAINBOW PARENTHESES IMPROVED
 " braces coloring
 Plugin 'oblitum/rainbow'
 
 " Vim motion on speed!
-" // w e b j k
-Plugin 'Lokaltog/vim-easymotion'
+" \\ w e b j k
+" Plugin 'Lokaltog/vim-easymotion'
 
 " TODO: set up
-Bundle "heavenshell/vim-jsdoc"
+Bundle 'heavenshell/vim-jsdoc'
 
 "JAVASCRIPT / JS
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
-
-Bundle "kchmck/vim-coffee-script"
-Bundle "digitaltoad/vim-jade"
+Bundle 'walm/jshint.vim'
+Bundle 'kchmck/vim-coffee-script'
 
 " Webdev
+Bundle 'digitaltoad/vim-jade'
 Bundle 'othree/html5.vim'
 Bundle 'gregsexton/MatchTag'
 Bundle 'hail2u/vim-css3-syntax'
 Bundle 'lukaszb/vim-web-indent'
-Bundle 'walm/jshint.vim'
 
 " Setting up Vundle - the vim plugin bundler end
 "-----------------------------------------------
-filetype plugin indent on
 syntax on
 
 
 " Vimballs
 " - http://vim.wikia.com/wiki/Applying_substitutes_to_a_visual_block
-
 
 " Buffer options
 set hidden                  " hide buffers when they are abandoned
@@ -96,7 +125,7 @@ set virtualedit=all
 set novisualbell            " mute error bell
 set nowrap
 set linebreak               " break lines by words
-set list listchars=tab:▸-,eol:¬,extends:☠,precedes:❤
+set list listchars=tab:▸\ ,eol:¬,extends:☠,precedes:❤
 " splits
 " set splitbelow
 " set splitright 
@@ -106,8 +135,9 @@ set guioptions-=T " Removes top toolbar
 set guioptions-=r " Removes right hand scroll bar
 set go-=L " Removes left hand scroll bar
 
+" for 'c' adds $ sing at the end of changing block
+set cpoptions+=$
 
-set number
 
 set scrolljump=1
 set scrolloff=5           " min 4 symbols below cursor
@@ -124,16 +154,30 @@ set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 set ttyfast                 " Optimize for fast terminal connections
 set shortmess=atI           " Don’t show the intro message when starting Vim
 
+set pastetoggle=<F2>
 
+" ======================================================
+" Numbers, relative numbers
+"nnoremap <F3> :NumbersToggle<CR>:set nu!<CR>
+set nu
+nnoremap <F3> :NumbersToggle<CR>
+nnoremap <F4> :NumbersOnOff<CR>
+
+" ======================================================
+" works for gui only: diff cursor for i/n modes
+set guicursor+=n-v-c:blinkon0
+" ======================================================
+" YANKSTACK
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
+let g:yankstack_map_keys = 0
 " ======================================================
 " RAINBOW PARENTHESES IMPROVED
 let g:rainbow_active = 1
 
 let g:rainbow_load_separately = [
-     \ [ '*' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-     \ [ '*.tex' , [['(', ')'], ['\[', '\]']] ],
-     \ [ '*.cpp' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
-     \ [ '*.{html,htm}' , [['(', ')'], ['\[', '\]'], ['{', '}'], ['<\a[^>]*>', '</[^>]*>']] ],
+     \ [ '*.js' , [['(', ')'], ['\[', '\]'], ['{', '}']] ],
+     \ [ '*.coffee' , [['(', ')'], ['\[', '\]'], ['{', '}']] ]
      \ ]
 
 let g:rainbow_guifgs = ['RoyalBlue3', 'DarkOrange3', 'DarkOrchid3', 'FireBrick']
@@ -145,9 +189,22 @@ let g:rainbow_ctermfgs = [244, 249]
 let g:javascript_conceal=1
 
 " ======================================================
+" EASYMOTION
+" map  / <Plug>(easymotion-sn)
+" omap / <Plug>(easymotion-tn)
+
+" These `n` & `N` mappings are options. You do not have to map `n` & `N` to EasyMotion.
+" Without these mappings, `n` & `N` works fine. (These mappings just provide
+" different highlight method and have some other features )
+" map  n <Plug>(easymotion-next)
+" map  N <Plug>(easymotion-prev)
+" ======================================================
 " AIRLINE
 " themes: 'bubblegum' 'understated'
 let g:airline_theme='sol'
+"user airline's tabline
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#tab_nr_type = 1
 set laststatus=2
 "if has("gui_running")
 let g:airline_powerline_fonts=2
@@ -174,15 +231,6 @@ vnoremap < <gv
 vnoremap > >gv
 " }}}
 
-" Tabulatioin navigation {{{
-" tab navigation like firefox
-nnoremap <C-S-Tab> :tabprevious<CR>
-nnoremap <C-Tab>   :tabnext<CR>
-nnoremap <C-t>     :tabnew<CR>
-inoremap <C-S-Tab> <Esc>:tabprevious<CR>i
-inoremap <C-Tab>   <Esc>:tabnext<CR>i
-inoremap <C-t>     <Esc>:tabnew<CR>
-" }}}
 " ======================================================
 set autoindent              " copy indent from previous line
 set smartindent             " enable nice indent
@@ -225,7 +273,6 @@ set wildmenu
 if has("gui_running") 
     set lines=999 columns=999 
 endif 
-
 
 " ======================================================
 " Ultimate UI system for running fuzzy-search on different things {{{
@@ -294,8 +341,8 @@ let g:unite_source_file_rec_max_cache_files = 0
 call unite#custom#source('file_rec/async', 'max_candidates', 0)
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+" autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+" autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "}}}
@@ -309,13 +356,13 @@ let g:nerdtree_tabs_open_on_console_startup = 1
 " close vim if the only window left open is a NERDTree
 
 let g:NERDTreeWinPos = "right"
-nmap <silent> <leader>t :NERDTreeTabsToggle<CR>
-nmap <silent> <leader>f :NERDTreeFind<CR>
+nnoremap <silent> <leader>t :NERDTreeTabsToggle<CR>
+nnoremap <silent> <leader>f :NERDTreeFind<CR>
 " }}}
 
 " Folding
 if has('folding')
-    set foldmethod=indent
+    set foldmethod=marker
     set foldlevel=99
     " toggle folds with space
     nmap <space> za
@@ -333,9 +380,19 @@ let g:session_autosave = 'yes'
 "
 " ======================================================
 " Quick write session with F5
-map <F5>:SaveSession! default<cr>
+nmap <F5>:SaveSession! default<cr>
 " And load session with F8
-map <F8>:OpenSession! default<cr>
+nmap <F8>:OpenSession! default<cr>
+
+"REMAPPINGS
+nnoremap ; :
+nnoremap : ;
+vnoremap ; :
+vnoremap : ;
+
+" ======================
+let g:calendar_google_calendar = 1
+let g:calendar_google_task = 1
 
 " ======================================================
 " No need to switch back to English in normal mode

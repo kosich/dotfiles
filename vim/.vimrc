@@ -10,7 +10,7 @@ call vundle#rc()
 
 " let Vundle manage Vundle
 " required! 
-Bundle 'gmarik/vundle'
+Plugin 'gmarik/vundle'
 
 "Bundle 'vim-scripts/FuzzyFinder'
 "Plugin 'wincent/command-t'
@@ -25,12 +25,22 @@ Plugin 'bling/vim-airline'
 " CALENDAR
 Plugin 'itchyny/calendar.vim'
 
+" google's plugin mngr
+Plugin 'google/vim-maktaba'
+
+" plugin configurator
+" e.g. :Glaive ..
+Plugin 'google/vim-glaive'
+
 " CODE FORMATTING
 " Add maktaba and codefmt to the runtimepath.
 " (The latter must be installed before it can be used.)
-Plugin 'google/vim-maktaba'
-Plugin 'google/vim-codefmtlib'
-Plugin 'google/vim-codefmt'
+" google's plugins
+" Plugin 'google/vim-codefmtlib'
+" Plugin 'google/vim-codefmt'
+
+" ...
+Plugin 'Chiel92/vim-autoformat'
 
 " GIT
 Plugin 'tpope/vim-fugitive'
@@ -55,13 +65,13 @@ Plugin 'jiangmiao/auto-pairs'
 
 Plugin 'myusuf3/numbers.vim'
 
-Bundle 'Shougo/unite.vim'
-Bundle 'Shougo/neocomplete.vim'
+Plugin 'Shougo/unite.vim'
+Plugin 'Shougo/neocomplete.vim'
 
-Bundle 'edsono/vim-matchit' 
+Plugin 'edsono/vim-matchit' 
 
-Bundle 'kshenoy/vim-signature'
-Bundle 'mkitt/tabline.vim'
+Plugin 'kshenoy/vim-signature'
+Plugin 'mkitt/tabline.vim'
 
 Plugin 'xolox/vim-misc'
 Plugin 'xolox/vim-session'
@@ -71,17 +81,17 @@ Plugin 'xolox/vim-session'
 
 " COLORSCHEMES
 " http://stackoverflow.com/questions/1199267/braces-and-operators-coloring-in-vim-for-c
-Bundle 'morhetz/gruvbox'
+Plugin 'morhetz/gruvbox'
 
 " Tag navigation
 " ! currently switched to tabline feature of airline plugin
 "Bundle 'majutsushi/tagbar'
 
 " \p \P to move forward/backward in yankstack
-Bundle 'maxbrunsfeld/vim-yankstack' 
+Plugin 'maxbrunsfeld/vim-yankstack' 
 
-Bundle 'elzr/vim-json'
-Bundle 'groenewege/vim-less'
+Plugin 'elzr/vim-json'
+Plugin 'groenewege/vim-less'
 
 " RAINBOW PARENTHESES IMPROVED
 " braces coloring
@@ -92,28 +102,29 @@ Plugin 'oblitum/rainbow'
 " Plugin 'Lokaltog/vim-easymotion'
 
 " TODO: set up
-Bundle 'heavenshell/vim-jsdoc'
+Plugin 'heavenshell/vim-jsdoc'
 
 "JAVASCRIPT / JS
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
-Bundle 'walm/jshint.vim'
-Bundle 'kchmck/vim-coffee-script'
+Plugin 'walm/jshint.vim'
+Plugin 'kchmck/vim-coffee-script'
 
 " Webdev
-Bundle 'digitaltoad/vim-jade'
-Bundle 'othree/html5.vim'
-Bundle 'gregsexton/MatchTag'
-Bundle 'hail2u/vim-css3-syntax'
-Bundle 'lukaszb/vim-web-indent'
-
+Plugin 'digitaltoad/vim-jade'
+Plugin 'othree/html5.vim'
+Plugin 'gregsexton/MatchTag'
+Plugin 'hail2u/vim-css3-syntax'
+Plugin 'lukaszb/vim-web-indent'
 " Setting up Vundle - the vim plugin bundler end
 "-----------------------------------------------
+filetype plugin indent on
 syntax on
-
 
 " Vimballs
 " - http://vim.wikia.com/wiki/Applying_substitutes_to_a_visual_block
+
+call glaive#Install()
 
 " Buffer options
 set hidden                  " hide buffers when they are abandoned
@@ -389,6 +400,42 @@ nnoremap ; :
 nnoremap : ;
 vnoremap ; :
 vnoremap : ;
+
+" AUTOFORMAT OPTIONS
+" https://github.com/beautify-web/js-beautify
+" CLI Options:
+"   -f, --file       Input file(s) (Pass '-' for stdin)
+"   -r, --replace    Write output in-place, replacing input
+"   -o, --outfile    Write output to file (default stdout)
+"   --config         Path to config file
+"   --type           [js|css|html] ["js"]
+"   -q, --quiet      Suppress logging to stdout
+"   -h, --help       Show this help
+"   -v, --version    Show the version
+" Beautifier Options:
+"   -s, --indent-size                 Indentation size [4]
+"   -c, --indent-char                 Indentation character [" "]
+"   -l, --indent-level                Initial indentation level [0]
+"   -t, --indent-with-tabs            Indent with tabs, overrides -s and -c
+"   -p, --preserve-newlines           Preserve line-breaks (--no-preserve-newlines disables)
+"   -m, --max-preserve-newlines       Number of line-breaks to be preserved in one chunk [10]
+"   -P, --space-in-paren              Add padding spaces within paren, ie. f( a, b )
+"   -j, --jslint-happy                Enable jslint-stricter mode
+"   -a, --space-after-anon-function   Add a space before an anonymous function's parens, ie. function ()
+"   -b, --brace-style                 [collapse|expand|end-expand|none] ["collapse"]
+"   -B, --break-chained-methods       Break chained method calls across subsequent lines
+"   -k, --keep-array-indentation      Preserve array indentation
+"   -x, --unescape-strings            Decode printable characters encoded in xNN notation
+"   -w, --wrap-line-length            Wrap lines at next opportunity after N characters [0]
+"   -X, --e4x                         Pass E4X xml literals through untouched
+"   -n, --end_with_newline            End output with newline
+"   --good-stuff                      Warm the cockles of Crockford's heart
+let g:formatprg_args_expr_javascript = '"-f - -Ppkj --good-stuff -p:2 -".(&expandtab ? "s ".&shiftwidth : "t").(&textwidth ? " -w ".&textwidth : "")'
+noremap =g :Autoformat<CR><CR>
+
+" GOOGLE/FORMATTING
+" Glaive codefmt clang_format_executable='/usr/bin/clang-format-3.5'
+
 
 " ======================
 let g:calendar_google_calendar = 1

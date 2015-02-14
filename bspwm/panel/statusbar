@@ -1,0 +1,85 @@
+#! /bin/sh
+
+source $(dirname $0)/panel_config
+
+Mpd() {
+	CURRENT=`mpc | head -n1 | grep '.* - .*'`
+	STAT=`mpc | grep -oP "\[paused\]"`
+	DURATION=`mpc | grep -oP "\d+\:\d+/\d+\:\d+"`
+
+	if [ "$CURRENT" = "" ]; then
+	    TEXT="mpd stopped"
+	else
+		if [ "$STAT" = "" ]; then
+			TEXT="$CURRENT"
+		else
+			TEXT="$CURRENT $STAT"
+		fi
+	fi
+
+	ICON="^fg($PANEL_COLOR)^i($PANEL_ICON_DIR/phones.xbm)"
+
+	echo "$ICON ^fg($PANEL_TEXT_LIGHT)$TEXT"
+}
+
+Wifi() {
+	WIFI=`iwgetid --raw`
+	QUAL=`iwconfig wlp2s0 | grep 'Link Quality=' | awk '{gsub(/[=/]/," "); print $3}'`
+	MAX=`iwconfig wlp2s0 | grep 'Link Quality=' | awk '{gsub(/[=/]/," "); print $4}'`
+	# PERC=`echo $QUAL*100/$MAX | bc`
+	
+	ICON="^i($PANEL_ICON_DIR/wifi_02.xbm)"
+	# echo "^fg($PANEL_COLOR)$ICON ^fg($PANEL_TEXT_LIGHT)$WIFI $PERC%"
+	echo "^fg($PANEL_COLOR)$ICON ^fg($PANEL_TEXT_LIGHT)$WIFI"
+}
+
+Bat() {
+	BAT=`acpi -b | awk '{gsub(/%,/,""); print $4}' | sed 's/%//g'`
+	STATUS=`acpi -b | awk '{gsub(/,/,""); print $3}'`
+	if [[ $STATUS = "Charging" ]]; then
+		ICON="ac_01.xbm"
+	else
+		ICON="bat_full_02.xbm"
+	fi
+
+	if [ $BAT -lt "20" ]; then
+		ICON_COLOR="$PANEL_URGENT_COLOR"
+	else
+		ICON_COLOR="$PANEL_COLOR"
+	fi
+
+	ICON="^i($PANEL_ICON_DIR/$ICON)"
+	echo "^fg($ICON_COLOR)$ICON ^fg($PANEL_TEXT_LIGHT)$BAT%"
+}
+
+Vol() {
+	AMASTER=`amixer -c PCH get Master | awk 'END{gsub(/\[|\]|%/,""); print $4}'`
+	ASTAT=`amixer -c PCH get Master | awk 'END{gsub(/\[|\]|%/,""); print $6}'`
+
+	if [[ $ASTAT = "on" ]]; then
+		ICON="spkr_01.xbm"
+	else
+		ICON="spkr_04.xbm"
+	fi
+
+	ICON="^fg($PANEL_COLOR)^i($PANEL_ICON_DIR/$ICON)"
+
+	echo "$ICON ^fg($PANEL_TEXT_LIGHT)$AMASTER%"
+}
+
+Date() {
+	POPUP="^ca(1, applet_date)"
+	DATE=`date +"%a %d %b"`
+	TIME=`date +"%I:%M %p"`
+
+	DATE_ICON="^fg($PANEL_COLOR)^i($PANEL_ICON_DIR/cal.xbm)"
+
+	TIME_ICON="^fg($PANEL_COLOR)^i($PANEL_ICON_DIR/clock.xbm)"
+
+	echo "$POPUP$DATE_ICON ^fg($PANEL_TEXT_LIGHT)$DATE  $TIME_ICON ^fg($PANEL_TEXT_LIGHT)$TIME^ca()"
+}
+
+while true ; do
+	echo "S$(Mpd)  $(Vol)  $(Wifi)  $(Bat)  $(Date)"
+	sleep 1
+done

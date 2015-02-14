@@ -1,0 +1,68 @@
+#! /bin/sh
+
+. panel_config
+
+NORMIFS=$IFS
+FIELDIFS=':'
+PADDING=' '
+
+while read -r line ; do
+    case $line in
+        S*)
+            # clock output
+            sys_infos="${line#?}"
+            ;;
+        W*)
+            # bspwm internal state
+            wm_infos="$PADDING"
+            IFS=$FIELDIFS
+            set -- ${line#?}
+            while [ $# -gt 0 ] ; do
+                item=$1
+                case $item in
+                    [OoFfUu]*)
+                        # desktops
+                        name=${item#?}
+                        case $item in
+                            O*)
+                                # focused occupied desktop
+                                FG=$PANEL_COLOR
+                                ;;
+                            F*)
+                                # focused free desktop
+                                FG=$PANEL_COLOR
+                                ;;
+                            U*)
+                                # focused urgent desktop
+                                FG=$PANEL_COLOR
+                                ;;
+                            o*)
+                                # occupied desktop
+                                FG=$PANEL_TEXT_LIGHT
+                                # BG=$COLOR_OCUPPIED_BG
+                                ;;
+                            f*)
+                                # free desktop
+                                FG=$PANEL_TEXT_DARK
+                                # BG=$COLOR_FREE_BG
+                                ;;
+                            u*)
+                                # urgent desktop
+                                FG=$PANEL_URGEN_COLOR
+                                ;;
+                        esac
+                        wm_infos="${wm_infos}^fg(${FG})${PADDING}${name}${PADDING}"
+                        ;;
+                esac
+                shift
+            done
+            IFS=$NORMIFS
+            ;;
+    esac
+    #calculate padding for right-alignment of system info
+	sys_text=$(echo $sys_infos | awk 'END{gsub(/(\^fg\(#[0-9a-fA-f]+\)|\^i\([^)]*\)|\^ca\([^)]*\))/,""); print }')
+    sys_width=`txtw -f "$FONT_FAMILY" -s "$FONT_SIZE" "$sys_text"`
+    # sys_width=`java -cp .:/home/tyler BMFontWidth $FONT_FAMILY $FONT_SIZE $sys_text`
+    p1=$((SCREEN_WIDTH - sys_width - 110)) #hardcoded number to account for icons
+    printf "%s\n" "$wm_infos^pa($p1)$sys_infos"
+done

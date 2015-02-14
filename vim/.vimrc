@@ -1,12 +1,9 @@
-set nocompatible
-filetype off
+set nocompatible              " be iMproved, required
+filetype off                  " required
 
-"-----------------------------------------------
-" Setting up Vundle - the vim plugin bundler 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" Add your bundles here
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required! 
@@ -118,7 +115,8 @@ Plugin 'hail2u/vim-css3-syntax'
 Plugin 'lukaszb/vim-web-indent'
 " Setting up Vundle - the vim plugin bundler end
 "-----------------------------------------------
-filetype plugin indent on
+call vundle#end()            " required
+filetype plugin indent on    " required
 syntax on
 
 " Vimballs

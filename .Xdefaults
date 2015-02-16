@@ -1,8 +1,31 @@
-yeahconsole*background:black
-yeahconsole*foreground:green
-yeahconsole*term: urxvt
-yeahconsole*toggleKey:None+Menu
+rofi.location: 2
+rofi.lines: 4
+rofi.columns: 1
+rofi.font: terminus 10
 
+rofi.fg: #A3A6AB
+rofi.bg: #34322E
+rofi.hlfg: #F6F9FF
+rofi.hlbg: #5C5955
+
+rofi.bc: #34322E
+rofi.bw: 0
+
+rofi.width: 100
+
+rofi.padding: 4
+rofi.yoffset: 23 !! $PANEL_HEIGHT
+rofi.xoffset: 0
+rofi.fixed-num-lines: false
+rofi.hmode: false
+rofi.terminal: urxvt
+rofi.ssh-set-title: true
+
+!! rofi.key: F12
+!! rofi.rkey: mod1+F2
+!! rofi.skey: mod1+F3
+
+!! URxvt*font: 
 !! -------------------------------------------
 !! UXVTERM COLORS AND SETTINGS
 !! -------------------------------------------

@@ -145,7 +145,7 @@ set guioptions-=r " Removes right hand scroll bar
 set go-=L " Removes left hand scroll bar
 
 " for 'c' adds $ sing at the end of changing block
-set cpoptions+=$
+" set cpoptions+=$
 
 
 set scrolljump=1

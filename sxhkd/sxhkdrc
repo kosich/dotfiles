@@ -35,7 +35,7 @@ super + y
 super + m
 	bspc window -s biggest
 
-super + {_,shift + }{h,j,k,l}
+alt + {_,shift + }{h,j,k,l}
 	bspc window -{f,s} {left,down,up,right}
 
 super + {_,shift + }c
@@ -53,16 +53,16 @@ super + ctrl + {h,j,k,l}
 super + ctrl + {_,shift + }space
 	bspc {window -p cancel,desktop -c}
 
-super + alt + {h,j,k,l}
+alt + super + {h,j,k,l}
 	bspc window -e {left -10,down +10,up -10,right +10}
 
 super + alt + shift + {h,j,k,l}
 	bspc window -e {right -10,up +10,down -10,left +10}
 
-super + ctrl + {1-9}
+alt + ctrl + {1-9}
 	bspc window -r 0.{1-9}
 
-super + {_,shift + }{1-9,0}
+alt + {_,shift + }{1-9,0}
 	bspc {desktop -f,window -d} ^{1-9,10}
 
 #
@@ -87,6 +87,11 @@ super + !button{1-3}
 super + @button{1-3}
 	bspc pointer -u
 
+
+# system related
+super + l
+        slimlock
+
 #
 # wm independent hotkeys
 #
@@ -95,7 +100,13 @@ super + Return
 	urxvt
 
 super + space
-	dmenu_run
+        rofi -show run
+
+ctrl + Escape
+        rofi -show run
+
+shift + Escape
+        urxvt -e htop
 
 # make sxhkd reload its configuration files:
 super + Escape

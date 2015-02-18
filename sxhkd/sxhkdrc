@@ -2,20 +2,16 @@
 # bspwm hotkeys
 #
 
-super + alt + Escape
-	bspc quit
-
-
 super + w
 	bspc window -c
 
-super + t
+alt + t
 	bspc desktop -l next
 
-super + b
+alt + b
 	bspc desktop -B
 
-super + {s,f}
+alt + {s,f}
 	bspc window -t {floating,fullscreen}
 
 super + {grave,Tab}
@@ -24,33 +20,33 @@ super + {grave,Tab}
 super + apostrophe
 	bspc window -s last
 
-super + {o,i}
+alt + {o,i}
 	bspc control --record-history off; \
 	bspc window {older,newer} -f; \
 	bspc control --record-history on
 
-super + y
+alt + y
 	bspc window -w last.manual
 
-super + m
+alt + m
 	bspc window -s biggest
 
 alt + {_,shift + }{h,j,k,l}
 	bspc window -{f,s} {left,down,up,right}
 
-super + {_,shift + }c
+alt + {_,shift + }c
 	bspc window -f {next,prev}
 
-super + {comma,period}
+alt + {comma,period}
 	bspc desktop -C {backward,forward}
 
-super + bracket{left,right}
+alt + bracket{left,right}
 	bspc desktop -f {prev,next}
 
-super + ctrl + {h,j,k,l}
+alt + ctrl + {h,j,k,l}
 	bspc window -p {left,down,up,right}
 
-super + ctrl + {_,shift + }space
+alt + ctrl + {_,shift + }space
 	bspc {window -p cancel,desktop -c}
 
 alt + super + {h,j,k,l}
@@ -78,17 +74,20 @@ alt + {_,shift + }Tab
 ~button1
 	bspc pointer -g focus
 
-super + button{1-3}
+alt + button{1-3}
 	bspc pointer -g {move,resize_side,resize_corner}
 
-super + !button{1-3}
+alt + !button{1-3}
 	bspc pointer -t %i %i
 
-super + @button{1-3}
+alt + @button{1-3}
 	bspc pointer -u
 
 
 # system related
+super + alt + shift + Escape
+	bspc quit
+
 super + l
         slimlock
 

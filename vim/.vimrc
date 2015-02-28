@@ -79,6 +79,7 @@ Plugin 'xolox/vim-session'
 " COLORSCHEMES
 " http://stackoverflow.com/questions/1199267/braces-and-operators-coloring-in-vim-for-c
 Plugin 'morhetz/gruvbox'
+Plugin 'altercation/vim-colors-solarized'
 
 " Tag navigation
 " ! currently switched to tabline feature of airline plugin
@@ -124,6 +125,8 @@ syntax on
 
 call glaive#Install()
 
+set dir=~/.tmp
+
 " Buffer options
 set hidden                  " hide buffers when they are abandoned
 set autoread                " auto reload changed files
@@ -140,9 +143,11 @@ set list listchars=tab:▸\ ,eol:¬,extends:☠,precedes:❤
 " set splitright 
 set background=dark     " you can use `dark` or `light` as your background
 color mangofruit
-set guioptions-=T " Removes top toolbar
-set guioptions-=r " Removes right hand scroll bar
-set go-=L " Removes left hand scroll bar
+
+set guioptions-=m " remove all gui stuff
+set guioptions-=T " remove all gui stuff
+set guioptions-=r " remove all gui stuff
+set guioptions-=L " remove all gui stuff
 
 " for 'c' adds $ sing at the end of changing block
 " set cpoptions+=$
@@ -218,7 +223,7 @@ set laststatus=2
 "if has("gui_running")
 let g:airline_powerline_fonts=2
 " Even special font for this crap
-set guifont=Droid\ Sans\ Mono\ for\ Powerline:h11
+set guifont=DejaVu\ Sans\ Mono\ for\ Powerline
 "endif
 
 function! AirlineOverride(...)

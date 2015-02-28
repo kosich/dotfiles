@@ -25,11 +25,17 @@ rofi.ssh-set-title: true
 !! rofi.rkey: mod1+F2
 !! rofi.skey: mod1+F3
 
-!! URxvt*font:
-!!    xft:terminus:size=11,\
-!!    xft:Droid\ Sans\ Mono:size=11,
-!!    xft:Code2000,
-!!    xft:Droid\ Sans\ Mono\ for\ Powerline:size=11
+URxvt*font:\
+        xft:Source\ Code\ Pro:size=11,\
+        xft:DejaVu\ Sans\ Mono\ for\ Powerline:size=11
+
+!!    xft:Inconsolata,\
+!!    xft:Source\ Code\ Pro,\
+!!    xft:Code2000
+
+!!  xft:Droid\ Sans\ Mono,\
+!!  xft:Droid\ Sans\ Mono\ for\ Powerline
+!!  xft:Open\ Sans,\
 
 !! -------------------------------------------
 !! UXVTERM COLORS AND SETTINGS

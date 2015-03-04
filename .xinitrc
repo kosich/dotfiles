@@ -13,8 +13,8 @@ fi
 
 setxkbmap -layout "us,ru"
 setxkbmap -option "grp:caps_toggle,grp_ledscroll"
-xrdb /home/kosich/.Xdefaults
-feh --bg-scale /home/kosich/background.png
+xrdb /home/kos/.Xdefaults
+feh --bg-scale /home/kos/homepage/dotfiles/background.png
 
 sxhkd &
 exec bspwm

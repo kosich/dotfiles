@@ -7,7 +7,7 @@ call vundle#begin()
 
 " let Vundle manage Vundle
 " required! 
-Plugin 'gmarik/vundle'
+Plugin 'gmarik/Vundle.vim'
 
 "Bundle 'vim-scripts/FuzzyFinder'
 "Plugin 'wincent/command-t'
@@ -35,6 +35,9 @@ Plugin 'google/vim-glaive'
 " google's plugins
 " Plugin 'google/vim-codefmtlib'
 " Plugin 'google/vim-codefmt'
+
+" DC colored scopes
+Plugin 'bigfish/vim-js-context-coloring'
 
 " ...
 Plugin 'Chiel92/vim-autoformat'
@@ -361,6 +364,9 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 "}}}
 
+" Context Coloring {{{
+let g:js_context_colors_enabled = 0
+" }}}
 
 " ======================================================
 " NerdTree {{{
@@ -370,7 +376,7 @@ let g:nerdtree_tabs_open_on_console_startup = 1
 " close vim if the only window left open is a NERDTree
 
 let g:NERDTreeWinPos = "right"
-nnoremap <silent> <leader>t :NERDTreeTabsToggle<CR>
+nnoremap <silent> <leader>T :NERDTreeTabsToggle<CR>
 nnoremap <silent> <leader>f :NERDTreeFind<CR>
 " }}}
 

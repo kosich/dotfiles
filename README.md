@@ -1,6 +1,6 @@
 dotfiles
 ========
 
-Just don't harm yourself with these...
+Currenly using: arch, bspwm, vim
 
-All copyrighted resources belong to their owners =]
+All copyrighted resources belong to their owners
